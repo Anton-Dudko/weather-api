@@ -1,0 +1,23 @@
+spring:
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 123456
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    generate-ddl: true
+
+rapid:
+  host: https://weatherapi-com.p.rapidapi.com/forecast.json?q={name}
+  connect-timeout: 60000
+  read-timeout: 60000
+  key: 12d1152610msh95c8de17e9a05d3p1e0115jsn442091e9ec04
+  city: Minsk
