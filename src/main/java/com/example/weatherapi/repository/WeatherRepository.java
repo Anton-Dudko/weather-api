@@ -6,11 +6,13 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Repository
 public interface WeatherRepository extends CrudRepository<WeatherInfo, Long> {
 
     WeatherInfo findFirstByOrderByLocation_LocaltimeStrDesc();
+    WeatherInfo findByLocation_LocaltimeStr(LocalDateTime localDateTime);
 
     @Query(value = "select avg(temperature) " +
             "from weather_info w left join location l ON l.id = w.location_id " +

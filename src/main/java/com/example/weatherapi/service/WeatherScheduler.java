@@ -3,7 +3,7 @@ package com.example.weatherapi.service;
 import com.example.weatherapi.config.RapidWeatherApiProperties;
 import com.example.weatherapi.config.RapidWeatherRequestProperties;
 import com.example.weatherapi.mapper.WeatherMapper;
-import com.example.weatherapi.mapper.WeatherMapperImple;
+import com.example.weatherapi.model.WeatherInfo;
 import com.example.weatherapi.model.dto.WeatherRootResponse;
 import com.example.weatherapi.repository.WeatherRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -33,11 +34,16 @@ public class WeatherScheduler {
                             WeatherRootResponse.class,
                             rapidWeatherRequestProperties.getRequest()))
                     .map(weatherMapper1::convertDtoToEntity)
+                    .filter(weatherInfo -> Objects.isNull(validWeatherInfoSave(weatherInfo)))
                     .map(weatherRepository::save)
-                    .orElseThrow(Exception::new);
+                    .orElseThrow(()-> new Exception("Weather info is already exist"));
         } catch (Exception exception) {
-            log.error("Failed get response in rapid, exception message: {}", exception.getMessage());
+            log.error("Error message in getWeather() {}", exception.getMessage());
         }
+    }
+
+    private WeatherInfo validWeatherInfoSave(WeatherInfo weatherInfo) {
+        return weatherRepository.findByLocation_LocaltimeStr(weatherInfo.getLocation().getLocaltimeStr());
     }
 }
 // TODO validation, Exception in rest template

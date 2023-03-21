@@ -27,7 +27,6 @@ public class WeatherController {
 
     @PostMapping("/average")
     public double getAvgWeather(@RequestBody AverageWeatherRequest averageWeatherRequest){
-        log.info(averageWeatherRequest.toString());
         return weatherService.getAvgWeather(averageWeatherRequest);
     }
 }
