@@ -8,4 +8,6 @@ import org.mapstruct.Mapper;
 public interface WeatherMapper {
     WeatherInfo convertDtoToEntity(WeatherRootResponse weatherRootResponse);
 
+//    WeatherRootResponse convertEntityToDto(WeatherInfo weatherInfo);
+
 }

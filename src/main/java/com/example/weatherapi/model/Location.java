@@ -1,11 +1,12 @@
 package com.example.weatherapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -30,8 +31,7 @@ public class Location {
     private String timeZoneId;
 
     private Long localtimeEpoch;
-
-    private String localtimeStr;
+    private LocalDateTime localtimeStr;
 
     @OneToOne(mappedBy = "location")
     @JsonIgnore

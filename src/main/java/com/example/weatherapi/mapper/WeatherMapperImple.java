@@ -4,12 +4,20 @@ import com.example.weatherapi.model.Location;
 import com.example.weatherapi.model.WeatherInfo;
 import com.example.weatherapi.model.dto.WeatherLocationResponse;
 import com.example.weatherapi.model.dto.WeatherRootResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Component
-public class WeatherMapperImple implements WeatherMapper {
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
-    @Override
+@Component
+@Slf4j
+public class WeatherMapperImple  {
+
+    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
+
+
     public WeatherInfo convertDtoToEntity(WeatherRootResponse weatherRootResponse) {
         if (weatherRootResponse == null) {
             return null;
@@ -26,7 +34,8 @@ public class WeatherMapperImple implements WeatherMapper {
     }
 
     protected Location weatherLocationResponseToLocation(WeatherLocationResponse weatherLocationResponse) {
-        if (weatherLocationResponse == null) {
+
+        if (Objects.isNull(weatherLocationResponse)) {
             return null;
         } else {
             Location location = new Location();
@@ -37,7 +46,10 @@ public class WeatherMapperImple implements WeatherMapper {
             location.setLon(weatherLocationResponse.getLon());
             location.setTimeZoneId(weatherLocationResponse.getTimeZoneId());
             location.setLocaltimeEpoch(weatherLocationResponse.getLocaltimeEpoch());
-            location.setLocaltimeStr(weatherLocationResponse.getLocaltime());
+            log.info(weatherLocationResponse.getLocaltime());
+            location.setLocaltimeStr(LocalDateTime.parse(weatherLocationResponse.getLocaltime(), df));
+            log.info(weatherLocationResponse.getLocaltime());
+            log.info(LocalDateTime.parse(weatherLocationResponse.getLocaltime(), df).toString());
             return location;
         }
     }

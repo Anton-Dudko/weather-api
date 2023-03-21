@@ -58,7 +58,10 @@
 			<version>1.5.0.Beta2</version>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+		</dependency>
 
 	</dependencies>
 
