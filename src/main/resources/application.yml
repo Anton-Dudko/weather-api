@@ -23,6 +23,6 @@ rapid:
   connect-timeout: 60000
   read-timeout: 60000
   key: 12d1152610msh95c8de17e9a05d3p1e0115jsn442091e9ec04
-  fix-rate: 15000
+  fix-rate: 150000
   request:
     city: Minsk

@@ -2,6 +2,7 @@ package com.example.weatherapi.service;
 
 import com.example.weatherapi.config.RapidWeatherApiProperties;
 import com.example.weatherapi.config.RapidWeatherRequestProperties;
+import com.example.weatherapi.mapper.WeatherMapper;
 import com.example.weatherapi.mapper.WeatherMapperImple;
 import com.example.weatherapi.model.dto.WeatherRootResponse;
 import com.example.weatherapi.repository.WeatherRepository;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class WeatherScheduler {
 
-    private final WeatherMapperImple weatherMapper;
+    private final WeatherMapper weatherMapper1;
     private final RestTemplate restTemplate;
     private final RapidWeatherApiProperties rapidWeatherApiProperties;
     private final WeatherRepository weatherRepository;
@@ -31,7 +32,7 @@ public class WeatherScheduler {
             Optional.ofNullable(restTemplate.getForObject(rapidWeatherApiProperties.getHost(),
                             WeatherRootResponse.class,
                             rapidWeatherRequestProperties.getRequest()))
-                    .map(weatherMapper::convertDtoToEntity)
+                    .map(weatherMapper1::convertDtoToEntity)
                     .map(weatherRepository::save)
                     .orElseThrow(Exception::new);
         } catch (Exception exception) {
@@ -39,4 +40,4 @@ public class WeatherScheduler {
         }
     }
 }
-// TODO mapper, validation, Exception in rest template,
+// TODO validation, Exception in rest template
