@@ -11,5 +11,4 @@ public interface LocationMapper {
             dateFormat = "yyyy-MM-dd H:mm")
     Location convertDtoToEntity(WeatherLocationResponse weatherLocationResponse);
 
-    WeatherLocationResponse convertEntityToDto(Location location);
 }

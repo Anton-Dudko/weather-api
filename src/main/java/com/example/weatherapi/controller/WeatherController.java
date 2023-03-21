@@ -4,29 +4,22 @@ import com.example.weatherapi.model.WeatherInfo;
 import com.example.weatherapi.model.dto.AverageWeatherRequest;
 import com.example.weatherapi.service.WeatherService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 @RequestMapping("/weather")
 public class WeatherController {
 
     private final WeatherService weatherService;
-    private final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm");
 
     @GetMapping("/current")
-    public WeatherInfo getWeather(){
+    public WeatherInfo getWeather() {
         return weatherService.getCurrentWeather();
     }
 
     @PostMapping("/average")
-    public double getAvgWeather(@RequestBody AverageWeatherRequest averageWeatherRequest){
+    public double getAvgWeather(@RequestBody AverageWeatherRequest averageWeatherRequest) {
         return weatherService.getAvgWeather(averageWeatherRequest);
     }
 }

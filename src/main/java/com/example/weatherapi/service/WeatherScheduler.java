@@ -20,7 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class WeatherScheduler {
 
-    private final WeatherMapper weatherMapper1;
+    private final WeatherMapper weatherMapper;
     private final RestTemplate restTemplate;
     private final RapidWeatherApiProperties rapidWeatherApiProperties;
     private final WeatherRepository weatherRepository;
@@ -33,10 +33,10 @@ public class WeatherScheduler {
             Optional.ofNullable(restTemplate.getForObject(rapidWeatherApiProperties.getHost(),
                             WeatherRootResponse.class,
                             rapidWeatherRequestProperties.getRequest()))
-                    .map(weatherMapper1::convertDtoToEntity)
+                    .map(weatherMapper::convertDtoToEntity)
                     .filter(weatherInfo -> Objects.isNull(validWeatherInfoSave(weatherInfo)))
                     .map(weatherRepository::save)
-                    .orElseThrow(()-> new Exception("Weather info is already exist"));
+                    .orElseThrow(() -> new Exception("Weather info is already exist"));
         } catch (Exception exception) {
             log.error("Error message in getWeather() {}", exception.getMessage());
         }

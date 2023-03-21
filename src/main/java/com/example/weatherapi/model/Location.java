@@ -2,6 +2,7 @@ package com.example.weatherapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,9 +24,9 @@ public class Location {
     private String region;
 
     private String country;
-
+    @NotNull
     private double lat;
-
+    @NotNull
     private double lon;
 
     private String timeZoneId;
